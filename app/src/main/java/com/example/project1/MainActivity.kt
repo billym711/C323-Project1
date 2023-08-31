@@ -2,10 +2,8 @@ package com.example.project1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import org.w3c.dom.Text
 
 /**
  * This program implements an Android application for a basic calculator.
@@ -18,14 +16,14 @@ class MainActivity : AppCompatActivity() {
 
     // This establishes some basic variables to store numbers and convert them to a printable string
     // We also have booleans to determine whether or not we are currently doing an operation, and which specific operation we're doing.
-        var currentString: String = ""
-        var currentNumber: Double = 0.0
-        var storedNumber: Double = 0.0
-        var doingOp: Boolean = false
-        var additionWait: Boolean = false
-        var subtractionWait: Boolean = false
-        var divisionWait: Boolean = false
-        var multiplicationWait: Boolean = false
+        private var currentString: String = ""
+        private var currentNumber: Double = 0.0
+        private var storedNumber: Double = 0.0
+        private var doingOp: Boolean = false
+        private var additionWait: Boolean = false
+        private var subtractionWait: Boolean = false
+        private var divisionWait: Boolean = false
+        private var multiplicationWait: Boolean = false
 
 
 
@@ -39,17 +37,17 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun clearNumbers(){
+    private fun clearNumbers(){
         //The function called by the "Clear" button to set all the numbers back to zero
         currentString = ""
         currentNumber = 0.0
         storedNumber = 0.0
     }
 
-    public fun updateText(){
+    private fun updateText(){
         //This is called any time the current number changes
         //Connecting to the xml TextView
-        val _currenttext : TextView = findViewById(R.id.textView) as TextView
+        val currentText : TextView = findViewById(R.id.textView)
 
         //If the current number is empty, we just want to display zero
         //If it's not empty, we also don't want to display the .0 at the end for no reason
@@ -57,17 +55,17 @@ class MainActivity : AppCompatActivity() {
         //Then we update the TextView text
         if (currentString.isNotEmpty()) {
             if (currentNumber.toString().length >= 2 && currentNumber.toString().reversed().subSequence(0, 2) == "0.") {
-                _currenttext.text = currentNumber.toString().dropLast(2)
+                currentText.text = currentNumber.toString().dropLast(2)
             }else{
-                _currenttext.text = currentNumber.toString()
+                currentText.text = currentNumber.toString()
 
             }
         } else {
-            _currenttext.text = "0"
+            currentText.text = "0"
         }
     }
 
-    fun getButtons(){
+    private fun getButtons(){
         //This defines the behaviors of each button on click
             // Buttons 0 through 9 just add their corresponding number to the string
             //we also set doingOp to false to indicate that we aren't in between two numbers in an operation
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                 //0 specifically checks for if the string is empty (we don't want multiple zeroes)
                 if (currentString.isNotEmpty()) {
                     doingOp = false
-                    currentString = currentString.plus("0");
+                    currentString = currentString.plus("0")
                     currentNumber = currentString.toDouble()
 
                 }
@@ -87,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button1)
             .setOnClickListener {
                 doingOp = false
-                currentString = currentString.plus("1");
+                currentString = currentString.plus("1")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -96,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("2");
+                currentString = currentString.plus("2")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -105,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("3");
+                currentString = currentString.plus("3")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -114,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("4");
+                currentString = currentString.plus("4")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -123,7 +121,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("5");
+                currentString = currentString.plus("5")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -132,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("6");
+                currentString = currentString.plus("6")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -141,7 +139,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("7");
+                currentString = currentString.plus("7")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -150,7 +148,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("8");
+                currentString = currentString.plus("8")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -159,7 +157,7 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
 
                 doingOp = false
-                currentString = currentString.plus("9");
+                currentString = currentString.plus("9")
                 currentNumber = currentString.toDouble()
                 updateText()
 
@@ -236,10 +234,10 @@ class MainActivity : AppCompatActivity() {
             .setOnClickListener {
                 if (currentString.isNotEmpty()) {
                     if (!doingOp) {
-                        if (currentString.first() == '-') {
-                            currentString = currentString.drop(1)
+                        currentString = if (currentString.first() == '-') {
+                            currentString.drop(1)
                         } else {
-                            currentString = "-".plus(currentString)
+                            "-".plus(currentString)
                         }
 
                         currentNumber = currentString.toDouble()
@@ -251,7 +249,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonpercent)
             .setOnClickListener {
                 
-                currentNumber /= 100
+                currentString = (currentString.toDouble() / 100).toString()
+                currentNumber = currentString.toDouble()
                 updateText()
 
             }
@@ -260,7 +259,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonperiod)
             .setOnClickListener {
                 if (!currentString.contains('.')) {
-                    currentString = currentString.plus(".");
+                    currentString = currentString.plus(".")
                     currentNumber = currentString.toDouble()
                     updateText()
                 }
