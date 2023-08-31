@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     public fun updateText(){
         val _currenttext : TextView = findViewById(R.id.textView) as TextView
         if (currentString.isNotEmpty()) {
-            _currenttext.text = currentNumber.toString();
+            _currenttext.text = currentNumber.toString()
         } else {
             _currenttext.text = "0.0"
         }
@@ -47,9 +47,10 @@ class MainActivity : AppCompatActivity() {
     fun getButtons(){
         findViewById<Button>(R.id.button0)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                
                 
                 if (currentString.isNotEmpty()) {
+                    doingOp = false
                     currentString = currentString.plus("0");
                     currentNumber = currentString.toDouble()
 
@@ -58,8 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button1)
             .setOnClickListener {
-                Log.d("clicked", "button 1")
-                
+                doingOp = false
                 currentString = currentString.plus("1");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -67,8 +67,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button2)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("2");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button3)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("3");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -85,8 +85,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button4)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("4");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -94,8 +94,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button5)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("5");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -103,8 +103,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button6)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("6");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -112,8 +112,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button7)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("7");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -121,7 +121,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button8)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+
+                doingOp = false
                 currentString = currentString.plus("8");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -129,8 +130,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button9)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                
+
+                doingOp = false
                 currentString = currentString.plus("9");
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -138,7 +139,11 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttondivide)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                if (divisionWait) {
+                    currentString = (storedNumber / currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 divisionWait = true
                 storedNumber = currentNumber
@@ -147,16 +152,25 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonplus)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                if (additionWait) {
+                    currentString = (currentNumber + storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 additionWait = true
                 storedNumber = currentNumber
                 currentString = ""
 
+
             }
         findViewById<Button>(R.id.buttonminus)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                if (subtractionWait) {
+                    currentString = (storedNumber - currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 subtractionWait = true
                 storedNumber = currentNumber
@@ -165,7 +179,11 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonmultiply)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                if (multiplicationWait) {
+                    currentString = (currentNumber * storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 multiplicationWait = true
                 storedNumber = currentNumber
@@ -174,51 +192,65 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonclear)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                
                 clearNumbers()
                 updateText()
 
             }
         findViewById<Button>(R.id.buttonnegative)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-                currentString = "-".plus(currentString)
-                currentNumber = currentString.toDouble()
-                updateText()
+                if (!doingOp) {
+                    if (currentString.first() == '-') {
+                        currentString = currentString.drop(1)
+                    } else {
+                        currentString = "-".plus(currentString)
+                    }
 
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
             }
         findViewById<Button>(R.id.buttonpercent)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                
                 currentNumber /= 100
                 updateText()
 
             }
         findViewById<Button>(R.id.buttonperiod)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
-
+                if (!currentString.contains('.')) {
+                    currentString = currentString.plus(".");
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
 
             }
         findViewById<Button>(R.id.buttonequals)
             .setOnClickListener {
-                Log.d("clicked", "button 0")
+                
                 if (additionWait) {
-                    currentNumber += storedNumber
+                    currentString = (currentNumber + storedNumber).toString()
                     additionWait = false
                 }
                 if (subtractionWait) {
-                    currentNumber -= storedNumber
+                    currentString = (storedNumber - currentNumber).toString()
                     subtractionWait = false
                 }
                 if (multiplicationWait) {
-                    currentNumber *= storedNumber
+                    currentString = (currentNumber * storedNumber).toString()
                     multiplicationWait = false
                 }
                 if (divisionWait) {
-                    currentNumber = storedNumber / currentNumber
+                    currentString = (storedNumber / currentNumber).toString()
                     divisionWait = false
                 }
+                currentNumber = currentString.toDouble()
+                doingOp = false
+                additionWait = false
+                subtractionWait = false
+                multiplicationWait = false
+                divisionWait = false
                 updateText()
 
             }
