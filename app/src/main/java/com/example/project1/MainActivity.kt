@@ -2,8 +2,10 @@ package com.example.project1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import kotlin.math.*
 
 /**
  * This program implements an Android application for a basic calculator.
@@ -97,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.button0)
             .setOnClickListener {
-                
+                Log.v("Button Press", "Button 0")
                 //0 specifically checks for if the string is empty (we don't want multiple zeroes)
                 if (currentString.isNotEmpty()) {
                     doingOp = false
@@ -109,6 +111,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button1)
             .setOnClickListener {
+                Log.v("Button Press", "Button 1")
+
                 doingOp = false
                 currentString = currentString.plus("1")
                 currentNumber = currentString.toDouble()
@@ -117,6 +121,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button2)
             .setOnClickListener {
+                Log.v("Button Press", "Button 2")
 
                 doingOp = false
                 currentString = currentString.plus("2")
@@ -126,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button3)
             .setOnClickListener {
+                Log.v("Button Press", "Button 3")
 
                 doingOp = false
                 currentString = currentString.plus("3")
@@ -135,6 +141,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button4)
             .setOnClickListener {
+                Log.v("Button Press", "Button 4")
 
                 doingOp = false
                 currentString = currentString.plus("4")
@@ -144,6 +151,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button5)
             .setOnClickListener {
+                Log.v("Button Press", "Button 5")
 
                 doingOp = false
                 currentString = currentString.plus("5")
@@ -153,6 +161,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button6)
             .setOnClickListener {
+                Log.v("Button Press", "Button 6")
 
                 doingOp = false
                 currentString = currentString.plus("6")
@@ -162,6 +171,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button7)
             .setOnClickListener {
+                Log.v("Button Press", "Button 7")
 
                 doingOp = false
                 currentString = currentString.plus("7")
@@ -171,6 +181,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button8)
             .setOnClickListener {
+                Log.v("Button Press", "Button 8")
 
                 doingOp = false
                 currentString = currentString.plus("8")
@@ -180,6 +191,7 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.button9)
             .setOnClickListener {
+                Log.v("Button Press", "Button 9")
 
                 doingOp = false
                 currentString = currentString.plus("9")
@@ -187,11 +199,14 @@ class MainActivity : AppCompatActivity() {
                 updateText()
 
             }
-        // The operations are also very similar. We check if a division is already active, and update the number if so.
+        // The operations are also very similar. We check if an operation is already active, and update the number if so.
         // Otherwise we start a new operation.
         // This same pattern is used for all 4 operations
+        // NOTE: this was updated from last week to fix a bug with multiple operations
         findViewById<Button>(R.id.buttondivide)
             .setOnClickListener {
+                Log.v("Button Press", "Button Divide")
+
                 if (additionWait) {
                     currentString = (currentNumber + storedNumber).toString()
                     currentNumber = currentString.toDouble()
@@ -223,6 +238,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonplus)
             .setOnClickListener {
+                Log.v("Button Press", "Button Plus")
+
                 if (additionWait) {
                     currentString = (currentNumber + storedNumber).toString()
                     currentNumber = currentString.toDouble()
@@ -255,6 +272,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonminus)
             .setOnClickListener {
+                Log.v("Button Press", "Button Minus")
+
                 if (additionWait) {
                     currentString = (currentNumber + storedNumber).toString()
                     currentNumber = currentString.toDouble()
@@ -286,6 +305,8 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonmultiply)
             .setOnClickListener {
+                Log.v("Button Press", "Button Multiply")
+
                 if (additionWait) {
                     currentString = (currentNumber + storedNumber).toString()
                     currentNumber = currentString.toDouble()
@@ -315,11 +336,58 @@ class MainActivity : AppCompatActivity() {
                 currentString = ""
 
             }
+        // Checks if the Sine button exists before setting OnClick for all the landscape-only buttons
+        if (findViewById<Button>(R.id.buttonsin) != null) {
+            //Sine, Cosine, and Tangent all use radians instead of degrees
+            findViewById<Button>(R.id.buttonsin)
+                .setOnClickListener {
+                    Log.v("Button Press", "Button Sine")
 
+                    currentString = (sin(currentString.toDouble())).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+
+                }
+            findViewById<Button>(R.id.buttoncos)
+                .setOnClickListener {
+                    Log.v("Button Press", "Button Cosine")
+
+                    currentString = (cos(currentString.toDouble())).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+
+                }
+            findViewById<Button>(R.id.buttontan)
+                .setOnClickListener {
+                    Log.v("Button Press", "Button Tangent")
+
+                    currentString = (tan(currentString.toDouble())).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+            findViewById<Button>(R.id.buttonlog)
+                .setOnClickListener {
+                    Log.v("Button Press", "Button Log")
+
+                    currentString = (log(currentString.toDouble(), 10.0)).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+            findViewById<Button>(R.id.buttonln)
+                .setOnClickListener {
+                    Log.v("Button Press", "Button Natural Log")
+
+                    currentString = (ln(currentString.toDouble())).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+
+                }
+        }
         //Clear is pretty simple. Sets the numbers to zero and updates the text
         findViewById<Button>(R.id.buttonclear)
             .setOnClickListener {
-                
+                Log.v("Button Press", "Button Clear")
+
                 clearNumbers()
                 updateText()
 
@@ -329,6 +397,7 @@ class MainActivity : AppCompatActivity() {
         // If it doesn't, add one
         findViewById<Button>(R.id.buttonnegative)
             .setOnClickListener {
+                Log.v("Button Press", "Button Negative")
                 if (currentString.isNotEmpty()) {
                     if (!doingOp) {
                         currentString = if (currentString.first() == '-') {
@@ -345,7 +414,8 @@ class MainActivity : AppCompatActivity() {
         // The percent button is just like the other operations. We just divide by 100 and update.
         findViewById<Button>(R.id.buttonpercent)
             .setOnClickListener {
-                
+                Log.v("Button Press", "Button Percent")
+
                 currentString = (currentString.toDouble() / 100).toString()
                 currentNumber = currentString.toDouble()
                 updateText()
@@ -355,6 +425,8 @@ class MainActivity : AppCompatActivity() {
         // If there's no decimal, we just add one to the string.
         findViewById<Button>(R.id.buttonperiod)
             .setOnClickListener {
+                Log.v("Button Press", "Button Decimal")
+
                 if (!currentString.contains('.')) {
                     currentString = currentString.plus(".")
                     currentNumber = currentString.toDouble()
@@ -365,7 +437,8 @@ class MainActivity : AppCompatActivity() {
         //Equals will check for whichever operation is active, then finish it and update the display.
         findViewById<Button>(R.id.buttonequals)
             .setOnClickListener {
-                
+                Log.v("Button Press", "Button Equals")
+
                 if (additionWait) {
                     currentString = (currentNumber + storedNumber).toString()
                     additionWait = false
