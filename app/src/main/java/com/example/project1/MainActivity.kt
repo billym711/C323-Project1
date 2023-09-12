@@ -29,7 +29,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            currentString = savedInstanceState.getString("currentString").toString()
+            currentNumber = savedInstanceState.getDouble("currentNumber")
+            storedNumber = savedInstanceState.getDouble("storedNumber")
+            doingOp = savedInstanceState.getBoolean("doingOp")
+            additionWait = savedInstanceState.getBoolean("additionWait")
+            subtractionWait = savedInstanceState.getBoolean("subtractionWait")
+            divisionWait = savedInstanceState.getBoolean("divisionWait")
+            multiplicationWait= savedInstanceState.getBoolean("multiplicationWait")
+            }
+
         setContentView(R.layout.activity_main)
+
         //As we create the view, we update the text to 0 and initialize the functions of each Button.
         updateText()
         getButtons()
@@ -48,18 +60,6 @@ class MainActivity : AppCompatActivity() {
 
 
         super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        currentString = savedInstanceState.getString("currentString").toString()
-        currentNumber = savedInstanceState.getDouble("currentNumber")
-        storedNumber = savedInstanceState.getDouble("storedNumber")
-        doingOp = savedInstanceState.getBoolean("doingOp")
-        additionWait = savedInstanceState.getBoolean("additionWait")
-        subtractionWait = savedInstanceState.getBoolean("subtractionWait")
-        divisionWait = savedInstanceState.getBoolean("divisionWait")
-        multiplicationWait= savedInstanceState.getBoolean("multiplicationWait")
     }
 
     private fun clearNumbers(){
@@ -192,6 +192,21 @@ class MainActivity : AppCompatActivity() {
         // This same pattern is used for all 4 operations
         findViewById<Button>(R.id.buttondivide)
             .setOnClickListener {
+                if (additionWait) {
+                    currentString = (currentNumber + storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (subtractionWait) {
+                    currentString = (storedNumber - currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (multiplicationWait) {
+                    currentString = (currentNumber * storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 if (divisionWait) {
                     currentString = (storedNumber / currentNumber).toString()
                     currentNumber = currentString.toDouble()
@@ -199,6 +214,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 doingOp = true
                 divisionWait = true
+                additionWait = false
+                subtractionWait = false
+                multiplicationWait = false
                 storedNumber = currentNumber
                 currentString = ""
 
@@ -210,8 +228,26 @@ class MainActivity : AppCompatActivity() {
                     currentNumber = currentString.toDouble()
                     updateText()
                 }
+                if (subtractionWait) {
+                    currentString = (storedNumber - currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (multiplicationWait) {
+                    currentString = (currentNumber * storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (divisionWait) {
+                    currentString = (storedNumber / currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 additionWait = true
+                subtractionWait = false
+                multiplicationWait = false
+                divisionWait = false
                 storedNumber = currentNumber
                 currentString = ""
 
@@ -219,26 +255,62 @@ class MainActivity : AppCompatActivity() {
             }
         findViewById<Button>(R.id.buttonminus)
             .setOnClickListener {
+                if (additionWait) {
+                    currentString = (currentNumber + storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 if (subtractionWait) {
                     currentString = (storedNumber - currentNumber).toString()
                     currentNumber = currentString.toDouble()
                     updateText()
                 }
+                if (multiplicationWait) {
+                    currentString = (currentNumber * storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (divisionWait) {
+                    currentString = (storedNumber / currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 subtractionWait = true
+                additionWait = false
+                multiplicationWait = false
+                divisionWait = false
                 storedNumber = currentNumber
                 currentString = ""
 
             }
         findViewById<Button>(R.id.buttonmultiply)
             .setOnClickListener {
+                if (additionWait) {
+                    currentString = (currentNumber + storedNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
+                if (subtractionWait) {
+                    currentString = (storedNumber - currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 if (multiplicationWait) {
                     currentString = (currentNumber * storedNumber).toString()
                     currentNumber = currentString.toDouble()
                     updateText()
                 }
+                if (divisionWait) {
+                    currentString = (storedNumber / currentNumber).toString()
+                    currentNumber = currentString.toDouble()
+                    updateText()
+                }
                 doingOp = true
                 multiplicationWait = true
+                additionWait = false
+                subtractionWait = false
+                divisionWait = false
                 storedNumber = currentNumber
                 currentString = ""
 
