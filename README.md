@@ -1,7 +1,8 @@
-# Project 1: Basic Calculator
+# Project 1: Basic Calculator Upgrade
 
 An Android app for a simple calculator, for C323 Android Mobile Development.
 It has addition, subtraction, multiplication, division, decimals, a percent button, a negative button, and a clear button.
+It now also has a landscape layout, featuring sine, cosine, tangent, log 10, and natural log.
 
 ## Functionality 
 
@@ -13,6 +14,8 @@ The following **required** functionality is completed:
 * [ ] User can clear everything with C button
 * [ ] User can make numbers negative or positive with +/-
 * [ ] User can choose % to divide the current number by 100.
+* [ ] User can choose a trigonometric operation (sine, cosine, or tangent) and apply it to the number in radians
+* [ ] User can choose a log 10 or natural log operation and apply it to the current number
 
 
 The following **extensions** are implemented:
@@ -29,7 +32,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Managing each sequential operation was tricky if I didn't press equal between them. I tried to fix the bugs around it, but there may be things that I forgot to test.
+The constraint layout was frustrating because the design view wouldn't match what actually displayed on the device for some reason, it needed tweaking to make it fit.
 
 ## License
 
