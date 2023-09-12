@@ -36,6 +36,31 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("currentString", currentString)
+        outState.putDouble("currentNumber", currentNumber)
+        outState.putDouble("storedNumber", storedNumber)
+        outState.putBoolean("doingOp", doingOp)
+        outState.putBoolean("additionWait", additionWait)
+        outState.putBoolean("subtractionWait", subtractionWait)
+        outState.putBoolean("divisionWait", divisionWait)
+        outState.putBoolean("multiplicationWait", multiplicationWait)
+
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        currentString = savedInstanceState.getString("currentString").toString()
+        currentNumber = savedInstanceState.getDouble("currentNumber")
+        storedNumber = savedInstanceState.getDouble("storedNumber")
+        doingOp = savedInstanceState.getBoolean("doingOp")
+        additionWait = savedInstanceState.getBoolean("additionWait")
+        subtractionWait = savedInstanceState.getBoolean("subtractionWait")
+        divisionWait = savedInstanceState.getBoolean("divisionWait")
+        multiplicationWait= savedInstanceState.getBoolean("multiplicationWait")
+    }
 
     private fun clearNumbers(){
         //The function called by the "Clear" button to set all the numbers back to zero
