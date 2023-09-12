@@ -1,4 +1,4 @@
-# Project 1: Basic Calculator Upgrade
+# Project 2: Basic Calculator Upgrade
 
 An Android app for a simple calculator, for C323 Android Mobile Development.
 It has addition, subtraction, multiplication, division, decimals, a percent button, a negative button, and a clear button.
