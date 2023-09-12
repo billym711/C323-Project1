@@ -3,6 +3,7 @@
 An Android app for a simple calculator, for C323 Android Mobile Development.
 It has addition, subtraction, multiplication, division, decimals, a percent button, a negative button, and a clear button.
 It now also has a landscape layout, featuring sine, cosine, tangent, log 10, and natural log.
+Finally, it also has an app icon, courtest of [Pixabay](https://pixabay.com/vectors/just-split-through-to-divide-2020934/)
 
 ## Functionality 
 
